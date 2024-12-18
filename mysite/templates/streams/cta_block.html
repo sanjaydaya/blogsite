@@ -1,0 +1,38 @@
+{% load wagtailcore_tags %}
+
+<div class="container mb-sm-5 mt-sm-5">
+  <div class="row">
+    <div class="col-md-5 offset-md-1 col-sm-12">
+      <h1 class="text-center mb-4">{{ self.title }}</h1>
+      <div class="rich-text-content">{{ self.text|richtext }}</div>
+      <div class="text-center mt-4">
+        {% if self.button_page %}
+        <a href="{{ self.button_page.url }}" class="btn btn-primary">
+          {{ self.button_text|default:"Learn More" }}
+        </a>
+        {% elif self.button_url %}
+        <a href="{{ self.button_url }}" class="btn btn-primary">
+          {{ self.button_text|default:"Learn More" }}
+        </a>
+        {% endif %}
+      </div>
+      <h2 class="text-center mt-5">Subscribe to Our Newsletter</h2>
+      <form method="POST" action="{% url 'subscribe' %}" class="text-center">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit" class="btn btn-secondary mt-3">Subscribe</button>
+      </form>
+      {% if form.errors %}
+      <div class="alert alert-danger mt-3">
+        <strong>There were some problems with your submission:</strong>
+        <ul>
+          {% for field in form %} {% for error in field.errors %}
+          <li>{{ error }}</li>
+          {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

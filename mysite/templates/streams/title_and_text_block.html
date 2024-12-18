@@ -1,0 +1,22 @@
+<div class="container mb-sm-5 mt-sm-5">
+  <div class="row">
+    <div class="col-md-10 offset-md-1 col-sm-12">
+      <h2 class="text-center mb-4">{{ self.title }}</h2>
+      <!-- Centered title with margin bottom -->
+      <p class="lead">{{ self.text|richtext }}</p>
+      <!-- Rich text formatting and lead class for emphasis -->
+
+      <div class="text-center mt-4">
+        {% if self.button_page %}
+        <a href="{{ self.button_page.url }}" class="btn btn-primary">
+          {{ self.button_text|default:"Learn More" }}
+        </a>
+        {% elif self.button_url %}
+        <a href="{{ self.button_url }}" class="btn btn-primary">
+          {{ self.button_text|default:"Learn More" }}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

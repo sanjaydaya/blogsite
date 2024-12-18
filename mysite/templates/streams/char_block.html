@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 offset-sm-1">
+      <h1 class="text-center mb-4">{{ self.title }}</h1>
+      <div class="content">
+        {{ self|safe }}
+        <!-- Assuming self contains HTML content that you want to render as is -->
+      </div>
+      <h2 class="text-center mt-5">Subscribe to Our Newsletter</h2>
+      <form method="POST" action="{% url 'subscribe' %}" class="text-center">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit" class="btn btn-primary mt-3">Subscribe</button>
+      </form>
+      {% if form.errors %}
+      <div class="alert alert-danger mt-3">
+        <strong>There were some problems with your submission:</strong>
+        <ul>
+          {% for field in form %} {% for error in field.errors %}
+          <li>{{ error }}</li>
+          {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<footer class="text-center mt-5">
+  <p>&copy; {{ current_year }} Your Company Name. All rights reserved.</p>
+</footer>
